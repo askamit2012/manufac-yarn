@@ -11,7 +11,6 @@ function App() {
   const [class1Alcohol, setClass1Alcohol] = useState([])
   const [class2Alcohol, setClass2Alcohol] = useState([])
   const [class3Alcohol, setClass3Alcohol] = useState([])
-  const [class4Alcohol, setClass4Alcohol] = useState([])
   const [measureData, setMeasureData] = useState({});
   useEffect(() => {
     transformData();
@@ -30,7 +29,8 @@ function App() {
   const transformData = () => {
     let type1 = [], type2 = [], type3 = [], type4 = [];
     data.forEach(item => {
-      item.Gamma = ((item?.Ash * item?.Hue) / item?.Magnesium).toFixed(3)
+      item.Gamma = Number.parseFloat(((item?.Ash * item?.Hue) / item?.Magnesium).toFixed(3))
+      // console.log('item - gamma : ', item?.Gamma, typeof item?.Gamma)
       if(item?.Alcohol === 1) {
         type1.push(item)
       } else if(item?.Alcohol === 2) {

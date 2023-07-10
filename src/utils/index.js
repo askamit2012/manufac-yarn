@@ -43,10 +43,10 @@ export const getMedianData = ( ...args ) => {
 function getMedian(data, type) {
   data.sort((a, b) => a?.Flavanoids - b?.Flavanoids)
     if(data.length % 2 !== 0) {
-        return data?.[Math.round(data?.length / 2)]?.Flavanoids
+        return data?.[Math.floor(data?.length / 2)]?.[type]
     } else {
-        let median1 = data?.[(Math.round(data.length / 2)) - 1]?.Flavanoids
-        let median2 = data?.[(data.length / 2)]?.Flavanoids
+        let median1 = data?.[(Math.floor(data.length / 2)) - 1]?.[type]
+        let median2 = data?.[(data.length / 2)]?.[type]
         return (median1 + median2) / 2
     }
 }
@@ -77,11 +77,12 @@ function getMode(data, type) {
             countObj[item?.[type]] = 1
         }
     });
-    let modeVal = 0
+    let modeVal = 0, modeKey = 0
     for(let key in countObj) {
-        if(countObj[key] > modeVal) {
-            modeVal = key
+        if(countObj[key] >= (modeVal)) {
+            modeVal = Number.parseFloat(countObj[key])
+            modeKey = key
         }
     }
-    return modeVal
+    return modeKey
 }
